@@ -1,0 +1,312 @@
+/* 
+  PaperMod Site-Specific CSS Overrides
+  Load ini SETELAH style.css utama
+  Customize per-domain untuk variasi visual
+*/
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES (OVERRIDEABLE)
+   ============================================================ */
+
+:root {
+    /* Color scheme bisa di-customize di sini per site */
+    --site-primary-hue: 0deg;
+    --site-primary-saturation: 0%;
+    --site-accent-color: #007bff;
+    --site-shadow-depth: 1px;
+}
+
+[data-theme="dark"] {
+    --site-accent-color: #0d6efd;
+}
+
+/* ============================================================
+   HEADER VARIATIONS
+   ============================================================ */
+
+/* Variant 1: Minimal Header */
+.layout-minimal .nav {
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+}
+
+.layout-minimal .logo {
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+/* Variant 2: Full-width Header */
+.layout-fullwidth {
+    --nav-width: 100%;
+}
+
+.layout-fullwidth .nav {
+    background: var(--entry);
+    border-bottom: 2px solid var(--border);
+}
+
+/* Variant 3: Sticky Header */
+.layout-sticky .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--theme);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================
+   TYPOGRAPHY VARIATIONS
+   ============================================================ */
+
+/* High-contrast variant (accessibility) */
+.typography-high-contrast {
+    --primary: rgb(0, 0, 0) !important;
+    --secondary: rgb(51, 51, 51) !important;
+    --content: rgb(0, 0, 0) !important;
+}
+
+/* Serif variant (for blog/article sites) */
+.typography-serif body {
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+.typography-serif h1,
+.typography-serif h2,
+.typography-serif h3,
+.typography-serif h4,
+.typography-serif h5,
+.typography-serif h6 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+}
+
+/* Monospace-forward (for tech/code sites) */
+.typography-mono {
+    --code-bg: var(--entry);
+    --hljs-bg: var(--entry);
+}
+
+.typography-mono .post-content code {
+    font-size: 0.9em;
+    background: var(--tertiary);
+}
+
+/* ============================================================
+   LAYOUT VARIATIONS
+   ============================================================ */
+
+/* Wide layout */
+.layout-wide {
+    --main-width: 900px;
+    --nav-width: 1200px;
+}
+
+/* Narrow layout (mobile-first style) */
+.layout-narrow {
+    --main-width: 600px;
+    --nav-width: 800px;
+}
+
+/* Two-column with sidebar */
+.layout-sidebar .main {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    gap: var(--gap);
+    max-width: 100%;
+}
+
+@media (max-width: 768px) {
+    .layout-sidebar .main {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   ENTRY CARD VARIATIONS
+   ============================================================ */
+
+/* Minimal cards */
+.card-style-minimal .post-entry {
+    border: none;
+    background: transparent;
+    padding: var(--content-gap);
+    border-bottom: 1px solid var(--border);
+}
+
+.card-style-minimal .post-entry:hover {
+    background: var(--code-bg);
+}
+
+/* Shadow cards */
+.card-style-shadow .post-entry {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.card-style-shadow .post-entry:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+[data-theme="dark"] .card-style-shadow .post-entry {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Gradient accent cards */
+.card-style-gradient .post-entry {
+    border-left: 4px solid var(--site-accent-color);
+    padding-left: calc(var(--gap) - 4px);
+}
+
+/* ============================================================
+   FOOTER VARIATIONS
+   ============================================================ */
+
+/* Minimal footer */
+.footer-style-minimal .footer {
+    padding: var(--gap);
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+}
+
+/* Rich footer */
+.footer-style-rich .footer {
+    padding: calc(var(--gap) * 2);
+    background: var(--entry);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--gap);
+}
+
+/* ============================================================
+   COLOR SCHEME VARIATIONS
+   ============================================================ */
+
+/* Warm color scheme */
+.scheme-warm:root {
+    --primary: rgb(40, 30, 25);
+    --secondary: rgb(120, 100, 90);
+    --tertiary: rgb(220, 200, 180);
+    --accent: #d4580d;
+}
+
+/* Cool color scheme */
+.scheme-cool:root {
+    --primary: rgb(25, 40, 50);
+    --secondary: rgb(90, 120, 140);
+    --tertiary: rgb(180, 210, 230);
+    --accent: #0066cc;
+}
+
+/* Monochrome */
+.scheme-mono:root {
+    --primary: rgb(40, 40, 40);
+    --secondary: rgb(100, 100, 100);
+    --tertiary: rgb(200, 200, 200);
+    --accent: rgb(80, 80, 80);
+}
+
+/* ============================================================
+   SPACING VARIATIONS
+   ============================================================ */
+
+/* Compact spacing */
+.spacing-compact {
+    --gap: 16px;
+    --content-gap: 12px;
+}
+
+/* Generous spacing (airy) */
+.spacing-generous {
+    --gap: 32px;
+    --content-gap: 28px;
+}
+
+/* ============================================================
+   BORDER RADIUS VARIATIONS
+   ============================================================ */
+
+/* Sharp corners */
+.corners-sharp * {
+    border-radius: 0 !important;
+}
+
+/* Rounded corners */
+.corners-rounded {
+    --radius: 12px;
+}
+
+/* Pill-style buttons */
+.corners-pill .post-tags a,
+.corners-pill .pagination a,
+.corners-pill .button {
+    border-radius: 50px;
+}
+
+/* ============================================================
+   ACCESSIBILITY & PERFORMANCE
+   ============================================================ */
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: more) {
+    :root {
+        --primary: rgb(0, 0, 0);
+        --secondary: rgb(51, 51, 51);
+        --border: rgb(128, 128, 128);
+    }
+    
+    [data-theme="dark"] {
+        --primary: rgb(255, 255, 255);
+        --secondary: rgb(200, 200, 200);
+        --border: rgb(128, 128, 128);
+    }
+}
+
+/* Reduced data mode */
+@media (prefers-reduced-data: reduce) {
+    img {
+        loading: lazy;
+    }
+}
+
+/* ============================================================
+   LOAD PERFORMANCE HINTS
+   ============================================================ */
+
+/* Lazy loading images */
+img {
+    loading: lazy;
+}
+
+/* Font display strategy */
+@font-face {
+    font-display: swap;
+}
+
+/* ============================================================
+   UNIQUE SITE FINGERPRINT (Change per domain)
+   ============================================================ */
+
+body {
+    /* Unique identifier yang di-generate per site */
+    /* Ini membantu prevent "network detection" */
+    --site-id: "site-unique-v1";
+    --site-version: "1.0";
+}
+
+/* Unique semantic classes per site */
+.site-header { }
+.site-main { }
+.site-footer { }
+.site-nav { }
+.site-content { }
