@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="95" fill="#2e7d32" stroke="#1b5e20" stroke-width="4"/>
+  
+  <!-- Dollar sign -->
+  <text x="100" y="140" font-size="120" font-weight="bold" fill="white" text-anchor="middle" font-family="Arial, sans-serif">$</text>
+  
+  <!-- Decorative circle inside -->
+  <circle cx="100" cy="100" r="85" fill="none" stroke="white" stroke-width="2" opacity="0.8"/>
+</svg>
