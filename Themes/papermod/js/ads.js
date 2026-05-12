@@ -21,9 +21,9 @@
         // CONFIG SCRIPT
         const configScript = document.createElement('script');
 
-        configScript.innerHTML = `
+        configScript.text = `
             atOptions = {
-                'key' : 'ISI_KEY_ADSTERRA',
+                'key' : 'cb6963aa0134b893b0f6c6b264ede149',
                 'format' : 'iframe',
                 'height' : 250,
                 'width' : 300,
@@ -34,7 +34,7 @@
         // INVOKE SCRIPT
         const invokeScript = document.createElement('script');
 
-        invokeScript.src = 'https://YOUR-ADSTERRA-DOMAIN/invoke.js';
+        invokeScript.src = 'https://motorsnag.com/cb6963aa0134b893b0f6c6b264ede149/invoke.js';
         invokeScript.async = true;
 
         // APPEND
@@ -52,11 +52,16 @@
     // ==========================================
     function insertAds() {
 
-        const content = document.querySelector('.post-content');
+    const content = document.querySelector('.post-content');
 
-        if (!content) return;
+    if (!content) return;
 
-        const paragraphs = content.querySelectorAll('p');
+    // prevent duplicate
+    if (content.dataset.adsLoaded) return;
+
+    content.dataset.adsLoaded = "true";
+
+    const paragraphs = content.querySelectorAll('p');
 
         // artikel terlalu pendek
         if (paragraphs.length < 6) return;
@@ -85,9 +90,125 @@
     // ==========================================
     // RUN
     // ==========================================
-    window.addEventListener('load', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
-        setTimeout(insertAds, 1000);
+        setTimeout(insertAds, 1500);
+
+    });
+
+})();
+
+/*
+==========================================
+HOME INLINE ADS
+==========================================
+*/
+
+(function () {
+
+    // ==========================================
+    // CREATE INLINE HOME AD
+    // ==========================================
+    function createHomeInlineAd() {
+
+        const wrapper = document.createElement('div');
+        wrapper.className = 'ad-wrapper';
+
+        const box = document.createElement('div');
+        box.className = 'ad-box';
+
+        /*
+        ==========================================
+        CONFIG SCRIPT
+        ==========================================
+        */
+
+        const configScript = document.createElement('script');
+
+        configScript.text = `
+            atOptions = {
+                'key' : 'cb6963aa0134b893b0f6c6b264ede149',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 300,
+                'params' : {}
+            };
+        `;
+
+        /*
+        ==========================================
+        INVOKE SCRIPT
+        ==========================================
+        */
+
+        const invokeScript = document.createElement('script');
+
+        invokeScript.src = 'https://motorsnag.com/cb6963aa0134b893b0f6c6b264ede149/invoke.js';
+
+        invokeScript.async = true;
+
+        /*
+        ==========================================
+        APPEND
+        ==========================================
+        */
+
+        box.appendChild(configScript);
+
+        box.appendChild(invokeScript);
+
+        wrapper.appendChild(box);
+
+        return wrapper;
+
+    }
+
+
+    // ==========================================
+    // INSERT HOME ADS
+    // ==========================================
+    function insertHomeAds() {
+
+        const posts = document.querySelectorAll('.main-content .post-entry');
+
+        if (!posts.length) return;
+
+        posts.forEach(function(post, index){
+
+            /*
+            setiap 5 post
+            mulai setelah post ke-3
+            */
+
+            if(index > 1 && (index + 1) % 5 === 0){
+
+                // prevent duplicate
+                if(post.nextElementSibling &&
+                   post.nextElementSibling.classList.contains('home-inline-ad')){
+                    return;
+                }
+
+                const adContainer = document.createElement('div');
+
+                adContainer.className = 'home-inline-ad';
+
+                adContainer.appendChild(createHomeInlineAd());
+
+                post.after(adContainer);
+
+            }
+
+        });
+
+    }
+
+
+    // ==========================================
+    // RUN
+    // ==========================================
+    document.addEventListener('DOMContentLoaded', function () {
+
+        setTimeout(insertHomeAds, 1500);
 
     });
 
