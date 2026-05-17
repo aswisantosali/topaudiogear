@@ -1,0 +1,28 @@
+name: IndexNow Submit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  submit:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Submit IndexNow
+        run: |
+
+          curl -X POST "https://api.indexnow.org/indexnow" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "host": "topaudiogear.com",
+            "key": "${{ secrets.INDEXNOW_KEY }}",
+            "keyLocation": "https://topaudiogear.com/${{ secrets.INDEXNOW_KEY }}.txt",
+            "urlList": [
+              "https://topaudiogear.com/"
+            ]
+          }'
