@@ -13,8 +13,47 @@ jobs:
 
     steps:
 
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v44
+
+      - name: Build URL list
+        id: urls
+        run: |
+
+          URLS=""
+
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}
+          do
+
+            # hanya file html
+            if [[ $file == *.html ]]; then
+
+              # hapus index.html
+              CLEAN=$(echo $file | sed 's/index.html//')
+
+              # buat url
+              URL="https://topaudiogear.com/$CLEAN"
+
+              URLS="$URLS,\"$URL\""
+
+            fi
+
+          done
+
+          URLS="[${URLS:1}]"
+
+          echo "urls=$URLS" >> $GITHUB_OUTPUT
+
+          echo $URLS
+
       - name: Submit IndexNow
         run: |
+
+          echo '${{ steps.urls.outputs.urls }}'
 
           curl -X POST "https://api.indexnow.org/indexnow" \
           -H "Content-Type: application/json" \
@@ -22,7 +61,10 @@ jobs:
             "host": "topaudiogear.com",
             "key": "${{ secrets.INDEXNOW_KEY }}",
             "keyLocation": "https://topaudiogear.com/${{ secrets.INDEXNOW_KEY }}.txt",
-            "urlList": [
-              "https://topaudiogear.com/"
-            ]
+            "urlList": '${{ steps.urls.outputs.urls }}'
           }'
+
+      - name: Ping Bing Sitemap
+        run: |
+
+          curl "https://www.bing.com/ping?sitemap=https://topaudiogear.com/sitemap.xml"
